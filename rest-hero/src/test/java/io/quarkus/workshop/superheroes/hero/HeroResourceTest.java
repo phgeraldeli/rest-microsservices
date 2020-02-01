@@ -9,7 +9,6 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 import static javax.ws.rs.core.Response.Status.OK;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,6 +19,7 @@ import java.util.Random;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -46,10 +46,12 @@ public class HeroResourceTest {
     private static final int DEFAULT_LEVEL = 42;
     private static final int UPDATED_LEVEL = 43;
 
-    private static final int NB_HEROES = 3;
+    private static final int NB_HEROES = 951;
     private static String heroId;
 
-
+    @ConfigProperty(name = "level.multiplier", defaultValue="1")
+	int levelMultiplier;
+    
     @Test
     void shouldNotGetUnknownHero() {
         Long randomId = new Random().nextLong();
@@ -132,7 +134,7 @@ public class HeroResourceTest {
             .header(CONTENT_TYPE, APPLICATION_JSON)
             .body("name", Is.is(DEFAULT_NAME))
             .body("otherName", Is.is(DEFAULT_OTHER_NAME))
-            .body("level", Is.is(DEFAULT_LEVEL))
+            .body("level", Is.is(DEFAULT_LEVEL* levelMultiplier))
             .body("picture", Is.is(DEFAULT_PICTURE))
             .body("powers", Is.is(DEFAULT_POWERS));
 
