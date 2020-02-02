@@ -38,7 +38,7 @@ public class VillainResourceTest {
     private static final int DEFAULT_LEVEL = 42;
     private static final int UPDATED_LEVEL = 43;
 
-    private static final int NB_VILLAINS = 581;
+    private static final int NB_VILLAINS = 8;
     private static String villainId;
 
     @Test
