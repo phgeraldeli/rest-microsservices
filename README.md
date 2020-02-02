@@ -45,4 +45,4 @@ Nesse Workshop desenvolvemos uma aplicação que permite super heróis lutarem c
 	- LoadSuperHeroes: Aplicação Java para fazer requisições de forma automática para os microsserviços
 	
 	
-![Application Image](./assets/application.png)
+![Application URL](./assets/application.png)
