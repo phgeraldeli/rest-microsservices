@@ -31,17 +31,9 @@ import org.jboss.logging.Logger;
 public class FightResource {
 
 	private static final Logger LOGGER = Logger.getLogger(FightResource.class);
-		
-	@ConfigProperty(name = "process.milliseconds", defaultValue="0")
-	long tooManyMilliseconds;
 	
     @Inject
     FightService service;
-	
-    
-    private void veryLongProcess() throws InterruptedException {
-        Thread.sleep(tooManyMilliseconds);
-    }
     
     @Operation(summary = "Returns two random fighters")
     @APIResponse(responseCode = "200", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Fighters.class, required = true)))
