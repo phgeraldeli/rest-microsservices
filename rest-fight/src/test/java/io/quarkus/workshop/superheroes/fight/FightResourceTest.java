@@ -1,28 +1,34 @@
 package io.quarkus.workshop.superheroes.fight;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.workshop.superheroes.fight.client.Hero;
-import io.quarkus.workshop.superheroes.fight.client.Villain;
-import io.restassured.common.mapper.TypeRef;
+import static io.restassured.RestAssured.get;
+import static io.restassured.RestAssured.given;
+import static javax.ws.rs.core.HttpHeaders.ACCEPT;
+import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
+import static javax.ws.rs.core.Response.Status.NO_CONTENT;
+import static javax.ws.rs.core.Response.Status.OK;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+import java.util.Random;
+
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import java.util.List;
-
-import java.util.Random;
-import static io.restassured.RestAssured.get;
-import static io.restassured.RestAssured.given;
-import static javax.ws.rs.core.HttpHeaders.ACCEPT;
-import static javax.ws.rs.core.HttpHeaders.CONTENT_TYPE;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.workshop.superheroes.fight.client.Hero;
+import io.quarkus.workshop.superheroes.fight.client.MockHeroService;
+import io.quarkus.workshop.superheroes.fight.client.MockVillainService;
+import io.quarkus.workshop.superheroes.fight.client.Villain;
+import io.restassured.common.mapper.TypeRef;
 
 
 
@@ -146,6 +152,21 @@ public class FightResourceTest {
         assertEquals(NB_FIGHTS + 1, fights.size());
     }
 
+    @Test
+    void shouldGetRandomFighters() {
+        given()
+            .when().get("/api/fights/randomfighters")
+            .then()
+            .statusCode(OK.getStatusCode())
+            .header(CONTENT_TYPE, APPLICATION_JSON)
+            .body("hero.name", Is.is(MockHeroService.DEFAULT_HERO_NAME))
+            .body("hero.picture", Is.is(MockHeroService.DEFAULT_HERO_PICTURE))
+            .body("hero.level", Is.is(MockHeroService.DEFAULT_HERO_LEVEL))
+            .body("villain.name", Is.is(MockVillainService.DEFAULT_VILLAIN_NAME))
+            .body("villain.picture", Is.is(MockVillainService.DEFAULT_VILLAIN_PICTURE))
+            .body("villain.level", Is.is(MockVillainService.DEFAULT_VILLAIN_LEVEL));
+    }
+    
     private TypeRef<List<Fight>> getFightTypeRef() {
         return new TypeRef<List<Fight>>() {
             // Kept empty on purpose

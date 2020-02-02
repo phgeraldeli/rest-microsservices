@@ -15,6 +15,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -29,12 +31,21 @@ import org.jboss.logging.Logger;
 public class FightResource {
 
 	private static final Logger LOGGER = Logger.getLogger(FightResource.class);
-
+		
+	@ConfigProperty(name = "process.milliseconds", defaultValue="0")
+	long tooManyMilliseconds;
+	
     @Inject
     FightService service;
 	
+    
+    private void veryLongProcess() throws InterruptedException {
+        Thread.sleep(tooManyMilliseconds);
+    }
+    
     @Operation(summary = "Returns two random fighters")
     @APIResponse(responseCode = "200", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Fighters.class, required = true)))
+    @Timeout(250)
     @GET
     @Path("/randomfighters")
     public Response getRandomFighters() throws InterruptedException {
