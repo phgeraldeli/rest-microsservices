@@ -3,6 +3,8 @@
 
 Nesse Workshop desenvolvemos uma aplicação que permite super heróis lutarem contra vilões.
 
+https://quarkus.io/quarkus-workshops/super-heroes/#introduction
+
 ## Software Requirements
 
 	- JDK 8
