@@ -36,6 +36,7 @@ import io.restassured.common.mapper.TypeRef;
 @QuarkusTest
 @QuarkusTestResource(DatabaseResource.class)
 @QuarkusTestResource(KafkaResource.class)
+@QuarkusTestResource(KeycloakResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FightResourceTest {
 
