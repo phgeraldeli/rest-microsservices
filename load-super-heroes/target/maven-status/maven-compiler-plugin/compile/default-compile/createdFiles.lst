@@ -1,0 +1,7 @@
+io\quarkus\workshop\superheroes\load\WeightedRandomResult.class
+io\quarkus\workshop\superheroes\load\FightScenario.class
+io\quarkus\workshop\superheroes\load\ScenarioInvoker.class
+io\quarkus\workshop\superheroes\load\VillainScenario.class
+io\quarkus\workshop\superheroes\load\Endpoint.class
+io\quarkus\workshop\superheroes\load\HeroScenario.class
+io\quarkus\workshop\superheroes\load\SuperHeroesLoad.class
