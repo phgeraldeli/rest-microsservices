@@ -19,6 +19,8 @@ import io.quarkus.workshop.superheroes.fight.client.Hero;
 import io.quarkus.workshop.superheroes.fight.client.HeroService;
 import io.quarkus.workshop.superheroes.fight.client.Villain;
 import io.quarkus.workshop.superheroes.fight.client.VillainService;
+import io.smallrye.reactive.messaging.annotations.Channel;
+import io.smallrye.reactive.messaging.annotations.Emitter;
 
 @ApplicationScoped
 @Transactional(SUPPORTS)
@@ -31,6 +33,9 @@ public class FightService {
 	@Inject
 	@RestClient
 	VillainService villainService;
+	
+	@Inject
+	@Channel("fights") Emitter<Fight> emitter;
 	
 	private static final Logger LOGGER = Logger.getLogger(FightService.class);
 
@@ -63,6 +68,7 @@ public class FightService {
 
         fight.fightDate = Instant.now();
         fight.persist();
+        emitter.send(fight);
         return fight;
     }
 	
