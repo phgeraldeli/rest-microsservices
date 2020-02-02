@@ -39,3 +39,4 @@ Nesse Workshop desenvolvemos uma aplicação que permite super heróis lutarem c
 	- Statistics: Microsserviço responsável por receber as estatísticas via Kafka e utilizando HTML e JQuery para mostra-las. 
 	- Prometheus: Recebe as métricas de todas as APIs e gera gráficos para visualização.
 	- Infrastructure: Pasta com toda a infra necessária.
+	- LoadSuperHeroes: Aplicação Java para fazer requisições de forma automática para os microsserviços
