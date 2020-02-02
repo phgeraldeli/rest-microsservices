@@ -29,7 +29,7 @@ Nesse Workshop desenvolvemos uma aplicação que permite super heróis lutarem c
 	- Quarkus
 
 
-## Repositorios
+## Repositórios
 
 
 	- Super Hero UI. Aplicação angular.
