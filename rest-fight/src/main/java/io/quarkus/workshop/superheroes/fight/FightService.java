@@ -35,7 +35,8 @@ public class FightService {
 	VillainService villainService;
 	
 	@Inject
-	@Channel("fights") Emitter<Fight> emitter;
+	@Channel("fights") 
+	Emitter<Fight> emitter;
 	
 	private static final Logger LOGGER = Logger.getLogger(FightService.class);
 
