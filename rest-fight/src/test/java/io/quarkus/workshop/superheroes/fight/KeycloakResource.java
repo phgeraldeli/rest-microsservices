@@ -10,8 +10,8 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class KeycloakResource implements QuarkusTestResourceLifecycleManager {
 
-	private static final KeycloakContainer KEYCLOAK = new KeycloakContainer().withAdminPassword("admin")
-			.withAdminUsername("admin");
+	public static final KeycloakContainer KEYCLOAK = new KeycloakContainer().withAdminPassword("admin")
+			.withAdminUsername("admin").withExposedPorts(9090);
 
 	private static final Logger LOGGER = Logger.getLogger(KeycloakResource.class);
 
